@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Dice from "./components/Dice";
 import Confetti from "react-confetti";
 
@@ -22,10 +22,10 @@ function App() {
   const diceComponents = dice.map((die) => (
     <Dice
       value={die.value}
-      saveValue={saveValue}
+      saveValue={useCallback(saveValue, [])} // Still not quite getting, why this has to be done
       id={die.id}
       key={die.id}
-      style={handleStyling(die)}
+      style={useMemo(() => handleStyling(die), [die])} // Still not quite getting, why this has to be done
     />
   ));
 
